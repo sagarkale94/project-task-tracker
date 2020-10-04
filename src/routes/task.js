@@ -5,11 +5,11 @@ const verifyToken = require('../middlewares/verifyToken');
 
 /**
 * @swagger
-* /getAllTaskByProjectId/{projectId}:
+* /getAllTaskByProjectAndTaskStatusId/{projectId}/{taskStatusId}:
     *   get:
     *     tags:
     *       - Tasks
-    *     description: get Tasks by projectId
+    *     description: get Tasks by projectId and taskStatusId
     *     produces:
     *       - application/json
     *     parameters:
@@ -21,12 +21,16 @@ const verifyToken = require('../middlewares/verifyToken');
     *         description: projectId
     *         in: path
     *         required: true
+    *       - name: taskStatusId
+    *         description: taskStatusId
+    *         in: path
+    *         required: true
     * 
     *     responses:
     *       200:
     *         description: success
 */
-router.get('/getAllTaskByProjectId/:projectId', verifyToken, (req, res) => {
+router.get('/getAllTaskByProjectAndTaskStatusId/:projectId/:taskStatusId', verifyToken, (req, res) => {
     Task.getAllTaskByProjectId(req, res);
 });
 

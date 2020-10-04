@@ -4,6 +4,9 @@ const Project = require('../models/project');
 const Task = require('../models/task');
 const TaskStatus = require('../models/taskStatus');
 const TaskPriority = require('../models/taskPriority');
+const Sequelize = require('sequelize');
+const TaskPic = require('../models/taskPic');
+const Op = Sequelize.Op;
 
 module.exports = {
 
@@ -26,7 +29,7 @@ module.exports = {
                 required: true,
             }
         }).then(projects => {
-            console.log('projects', projects)
+
             if (projects.length > 0) {
 
                 Task.findAll({
@@ -36,10 +39,11 @@ module.exports = {
                     ],
                     where: {
                         is_deleted: 0,
-                        $or: [
-                            { '$createBy.employeeId$': req.employeeId },
-                            { '$assignedTo.employeeId$': req.employeeId }
-                        ]
+                        [Op.or]: [
+                            { '$createBy.employee_id$': req.employeeId },
+                            { '$assignedTo.employee_id$': req.employeeId }
+                        ],
+                        '$taskStatus.task_status_id$': req.params.taskStatusId
                     },
                     include: [
                         {
@@ -92,8 +96,23 @@ module.exports = {
                             ],
                             required: true,
                             through: { attributes: [] },
+                        },
+                        {
+                            model: TaskPic,
+                            as: 'taskPic',
+                            attributes: [
+                                ['task_pic_id', 'taskPicId'],
+                                ['task_pic_url', 'taskPicUrl']
+                            ],
+                            where: {
+                                is_deleted: 0
+                            },
+                            required: false
                         }
-                    ]
+                    ],
+                    order: [
+                        ['task_id', 'DESC'],
+                    ],
 
                 }).then(tasks => {
                     if (tasks.length > 0) {
@@ -110,7 +129,7 @@ module.exports = {
                         });
                     }
                 }).catch(err => {
-                    console.log('errrrr', err)
+                    console.log('erer', err)
                     res.send({
                         errCode: Config.errCodeError,
                         errMessage: err,
@@ -127,7 +146,6 @@ module.exports = {
             }
 
         }).catch(err => {
-            console.log('getalltask', err);
             res.send({
                 errCode: Config.errCodeError,
                 errMessage: err,

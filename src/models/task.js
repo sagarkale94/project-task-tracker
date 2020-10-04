@@ -33,10 +33,12 @@ const Task = sequelize.define(
 
 Task.belongsToMany(Project, {
     through: TaskAssignment,
+    as: 'projectTask',
     foreignKey: 'task_id'
 });
 Project.belongsToMany(Task, {
     through: TaskAssignment,
+    as: 'projectTask',
     foreignKey: 'project_id'
 });
 

@@ -1,8 +1,9 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../util/database');
+const Task = require('./task');
 
-const TaskPics = sequelize.define(
-    'task_pics',
+const TaskPic = sequelize.define(
+    'task_pic',
     {
         task_pic_id: {
             type: Sequelize.INTEGER,
@@ -26,4 +27,13 @@ const TaskPics = sequelize.define(
     }
 );
 
-module.exports = TaskPics;
+Task.hasMany(TaskPic, {
+    as: 'taskPic',
+    foreignKey: 'task_id',
+});
+TaskPic.belongsTo(Task, {
+    as: 'taskPic',
+    foreignKey: 'task_pic_id',
+});
+
+module.exports = TaskPic;

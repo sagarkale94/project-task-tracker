@@ -34,10 +34,12 @@ const Project = sequelize.define(
 
 Project.belongsToMany(Employee, {
     through: ProjectEmployeeMapping,
+    as: 'projectEmployee',
     foreignKey: 'project_id'
 });
 Employee.belongsToMany(Project, {
     through: ProjectEmployeeMapping,
+    as: 'projectEmployee',
     foreignKey: 'employee_id'
 });
 

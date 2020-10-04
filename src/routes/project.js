@@ -34,4 +34,31 @@ router.get('/getMyAllProjects/:pageSize/:pageNo', verifyToken, (req, res) => {
     Project.getAllProjectByEmployeeId(req, res);
 });
 
+/**
+* @swagger
+* /getProjectDetailsByProjectId/{projectId}:
+    *   get:
+    *     tags:
+    *       - Project
+    *     description: get project details by projecId
+    *     produces:
+    *       - application/json
+    *     parameters:
+    *       - name: Authorization
+    *         description: token
+    *         in: header
+    *         required: true
+    *       - name: projectId
+    *         description: projectId
+    *         in: path
+    *         required: true
+    * 
+    *     responses:
+    *       200:
+    *         description: success
+*/
+router.get('/getProjectDetailsByProjectId/:projectId', verifyToken, (req, res) => {
+    Project.getProjectDetailsByProjectId(req, res);
+});
+
 module.exports = router;

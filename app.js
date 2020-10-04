@@ -4,6 +4,8 @@ const port = require('./config').port;
 const authenticationRoutes = require('./src/routes/authentication');
 const projectRoutes = require('./src/routes/project');
 const taskRoutes = require('./src/routes/task');
+const taskStatusRoutes = require('./src/routes/taskStatus');
+const taskPriorityRoutes = require('./src/routes/taskPriority');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const swaggerJsdoc = require('swagger-jsdoc');
@@ -31,6 +33,8 @@ app.use(bodyParser.json());
 app.use(authenticationRoutes);
 app.use(projectRoutes);
 app.use(taskRoutes);
+app.use(taskStatusRoutes);
+app.use(taskPriorityRoutes);
 app.use((req, res) => {
     res.status(404).send({ errCode: 0, errMessage: "404 request", data: "" })
 });
