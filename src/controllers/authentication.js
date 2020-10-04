@@ -50,6 +50,7 @@ module.exports = {
                 employeeResponse.token = 'Bearer ' + token;
                 delete employeeResponse.employee_id;
                 delete employeeResponse.employeeProfile.employee_profile_id;
+                employeeResponse.employeeProfile.role.roleId = employeeResponse.employeeProfile.role.role_id;
                 delete employeeResponse.employeeProfile.role.role_id;
                 res.send({
                     errCode: Config.errCodeSuccess,

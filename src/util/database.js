@@ -11,7 +11,7 @@ const sequelize = new Sequelize(
 );
 
 /* const sequelize = new Sequelize(
-    'employee_attendance',
+    'project_task_tracker',
     'root',
     'sagarkale94@',
     {

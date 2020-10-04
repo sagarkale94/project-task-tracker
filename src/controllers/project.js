@@ -37,7 +37,7 @@ module.exports = {
                 });
             } else {
                 res.send({
-                    errCode: Config.errCodeError,
+                    errCode: Config.errCodeNoRecordFound,
                     errMessage: "No record found..!!",
                     data: []
                 });
